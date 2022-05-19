@@ -41,4 +41,14 @@ export class AppController {
     });
     return new StreamableFile(file);
   }
+
+  @Get('/file-view-pdf')
+  viewFilePDF(@Response({ passthrough: true }) res): StreamableFile {
+    const file = createReadStream(join(process.cwd(), 'sample.pdf'));
+    res.set({
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': 'inline',
+    });
+    return new StreamableFile(file);
+  }
 }
