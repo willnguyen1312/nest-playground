@@ -12,12 +12,22 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get('/file')
-  getFile(@Response({ passthrough: true }) res): StreamableFile {
+  @Get('/file-view')
+  viewFile(@Response({ passthrough: true }) res): StreamableFile {
     const file = createReadStream(join(process.cwd(), 'sample.pdf'));
     res.set({
       'Content-Type': 'application/pdf',
       'Content-Disposition': 'inline',
+    });
+    return new StreamableFile(file);
+  }
+
+  @Get('/file-download')
+  downloadFile(@Response({ passthrough: true }) res): StreamableFile {
+    const file = createReadStream(join(process.cwd(), 'sample.pdf'));
+    res.set({
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': 'attachment; filename=sample.pdf',
     });
     return new StreamableFile(file);
   }
