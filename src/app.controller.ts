@@ -31,4 +31,14 @@ export class AppController {
     });
     return new StreamableFile(file);
   }
+
+  @Get('/file-view-csv')
+  viewFileCSV(@Response({ passthrough: true }) res): StreamableFile {
+    const file = createReadStream(join(process.cwd(), 'addresses.csv'));
+    res.set({
+      'Content-Type': 'text/plain; charset=UTF-8',
+      'Content-Disposition': 'inline',
+    });
+    return new StreamableFile(file);
+  }
 }
