@@ -12,6 +12,11 @@ export class AppController {
     return this.appService.getHello();
   }
 
+  @Get('/long')
+  getLong() {
+    return { ok: true };
+  }
+
   @Get('/file-view')
   viewFile(@Response({ passthrough: true }) res): StreamableFile {
     const file = createReadStream(join(process.cwd(), 'sample.pdf'));
